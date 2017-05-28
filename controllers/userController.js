@@ -13,7 +13,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/users/', function(req, res) {
+    app.get('/users/', function(req, res) {
         
         Users.find({}, function(err, users_data) {
 
@@ -29,7 +29,7 @@ module.exports = function(app) {
         
     });
 
-    app.get('/api/users/:uname', function(req, res) {
+    app.get('/users/:uname', function(req, res) {
         
         Users.find({ username: req.params.uname }, function(err, user_data) {
             if (err) throw err;
@@ -43,7 +43,7 @@ module.exports = function(app) {
         
     });
     
-    app.post('/api/users/create_user', function(req, res){
+    app.post('/users/create_user', function(req, res){
         Users.findOne({username: req.body.username }, function(err,user) {
             if(user){
                 res.send('Username already exists');
@@ -64,7 +64,7 @@ module.exports = function(app) {
     });
 
     //Se necesita id y role
-    app.put('/api/users/add_role', function(req, res) {
+    app.put('/users/add_role', function(req, res) {
         if(req.body.role && req.body.id){
             Users.findById(req.body.id, function(err, user) {
                 if (err) throw err;
@@ -91,7 +91,7 @@ module.exports = function(app) {
 
     });
 
-    app.delete('/api/users/delete_user', function(req, res) {
+    app.delete('/users/delete_user', function(req, res) {
         
         Users.findByIdAndRemove(req.body.id, function(err, document) {
             if (err) throw err;
@@ -100,7 +100,7 @@ module.exports = function(app) {
         res.send('Invalid user id');
         
     });
-    // app.delete('/api/todo', function(req, res) {
+    // app.delete('/todo', function(req, res) {
         
     //     Todos.findByIdAndRemove(req.body.id, function(err) {
     //         if (err) throw err;

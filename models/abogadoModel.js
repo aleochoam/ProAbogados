@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 
 var abogadoSchema = new Schema({
     username: String,
+    password: String,
     name: String,
     lastname: String,
     email: String,

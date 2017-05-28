@@ -6,7 +6,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/legalapp/', function(req, res) {
+    app.get('/legalapp/', function(req, res) {
         LegalApp.find({}, function(err, info) {
             if (err)
                 throw err
@@ -20,7 +20,7 @@ module.exports = function(app) {
         
     });
 
-    app.get('/api/legalapp/:id', function(req, res) {
+    app.get('/legalapp/:id', function(req, res) {
         LegalApp.findOne({id: req.params.id}, function(err, info) {
             if (err)
                 throw err
@@ -34,7 +34,7 @@ module.exports = function(app) {
         
     });
 
-    app.post('/api/legalapp', function(req, res) {
+    app.post('/legalapp', function(req, res) {
         LegalApp.findOne({id: req.body.id}, function(err, info) {
             if (info) {
                 res.send("That info already exist")

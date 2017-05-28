@@ -6,7 +6,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/bot_user/', function(req, res) {
+    app.get('/bot_user/', function(req, res) {
         BotUsers.find({}, function(err, botUser_data) {
             if (err)
                 throw err
@@ -20,14 +20,14 @@ module.exports = function(app) {
         
     });
 
-    app.put('/api/bot_user/:uname', function(req, res) {
+    app.put('/bot_user/:uname', function(req, res) {
         BotUsers.findByIdAndUpdate(req.params.uname, { idAbogado: req.body.idAbogado }, function(err, up_user) {
             if (err) throw err;
                 res.send('Description added to '+ up_user);
             });
     });
 
-    app.get('/api/bot_user/:uname', function(req, res) {
+    app.get('/bot_user/:uname', function(req, res) {
         
         BotUsers.find({ _id: req.params.uname }, function(err, user_data) {
             if (err) throw err;

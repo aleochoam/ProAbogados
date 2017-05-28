@@ -12,7 +12,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/cases/', function(req, res) {
+    app.get('/cases/', function(req, res) {
         
         Cases.find({}, function(err, cases_data) {
             if (err)
@@ -27,7 +27,7 @@ module.exports = function(app) {
         
     });
 
-    app.get('/api/cases/:uname', function(req, res) {
+    app.get('/cases/:uname', function(req, res) {
         
         Cases.find({ idUser: req.params.uname }, function(err, case_data) {
             if (err) throw err;
@@ -41,7 +41,7 @@ module.exports = function(app) {
         
     });
     
-    app.post('/api/Cases/create_case', function(req, res){
+    app.post('/Cases/create_case', function(req, res){
         var newUser = Cases({
             title: req.body.title,
             description: req.body.description,
@@ -56,7 +56,7 @@ module.exports = function(app) {
     });
 
     //Se necesita id y role
-    app.put('/api/Cases/add_role', function(req, res) {
+    app.put('/Cases/add_role', function(req, res) {
         if(req.body.role && req.body.id){
             Cases.findById(req.body.id, function(err, user) {
                 if (err) throw err;
@@ -83,7 +83,7 @@ module.exports = function(app) {
 
     });
 
-    app.delete('/api/Cases/delete_user', function(req, res) {
+    app.delete('/Cases/delete_user', function(req, res) {
         
         Cases.findByIdAndRemove(req.body.id, function(err, document) {
             if (err) throw err;
@@ -92,7 +92,7 @@ module.exports = function(app) {
         res.send('Invalid user id');
         
     });
-    // app.delete('/api/todo', function(req, res) {
+    // app.delete('/todo', function(req, res) {
         
     //     Todos.findByIdAndRemove(req.body.id, function(err) {
     //         if (err) throw err;

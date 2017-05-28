@@ -7,7 +7,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/comments', function(req, res) {
+    app.get('/comments', function(req, res) {
         Comments.find({}, function(err, comms) {
             if (err)
                 throw err
@@ -15,7 +15,7 @@ module.exports = function(app) {
         })
     })
 
-    app.get('/api/comments/:id', function(req, res) {
+    app.get('/comments/:id', function(req, res) {
         Abogados.findOne({ _id: req.params.id }, function(err, lawyer) {
             if (err)
                 throw err;
@@ -31,7 +31,7 @@ module.exports = function(app) {
         });
     });
     
-    app.post('/api/comments/create_comment', function(req, res){
+    app.post('/comments/create_comment', function(req, res){
         var newComment = Comments({
             id_abogado: req.body.id_abogado,
             poster: req.body.poster,

@@ -11,7 +11,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.post('/api/bot_cases/verify', function(req, res) {
+    app.post('/a/bot_cases/verify', function(req, res) {
         BotUsers.find({_id: req.body.idUserBot}, function(err, userBot) { //Se busca al usuario bot en la db
           if (err)
             throw err
@@ -58,7 +58,7 @@ module.exports = function(app) {
         })
     });
 
-  app.post('/api/bot_cases/update/', function(req, res) {
+  app.post('/bot_cases/update/', function(req, res) {
     BotCases.findByIdAndUpdate(req.body.id, {status: req.body.status}, (err, up_case) =>{
       if (err)
         throw err;

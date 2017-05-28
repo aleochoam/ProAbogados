@@ -14,7 +14,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/abogados/', function(req, res) {
+    app.get('/abogados/', function(req, res) {
         Abogados.find({}, function(err, abogados_data) {
             if (err)
                 throw err
@@ -28,7 +28,7 @@ module.exports = function(app) {
         
     });
 
-    app.get('/api/abogados/:id', function(req, res) {
+    app.get('/abogados/:id', function(req, res) {
         
         Abogados.findOne({ _id: req.params.id }, function(err, abogado_data) {
             if (err)
@@ -53,7 +53,7 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/api/abogados/topic/:uname', function(req, res) {
+    app.get('/abogados/topic/:uname', function(req, res) {
         
         Abogados.find({ roles: {"$in" : [req.params.uname]} }, function(err, abogado_data) {
             console.log(abogado_data)
@@ -69,7 +69,7 @@ module.exports = function(app) {
         
     });
     
-    app.post('/api/abogados/create_abogado', function(req, res){
+    app.post('/abogados/create_abogado', function(req, res){
         Abogados.findOne({username: req.body.username }, function(err,abogado) {
             if(abogado){
                 res.send('Username already exists');
@@ -93,7 +93,7 @@ module.exports = function(app) {
     });
 
     //Se necesita id y role
-    app.put('/api/abogados/add_role', function(req, res) {
+    app.put('/abogados/add_role', function(req, res) {
         if(req.body.role && req.body.id){
             Abogados.findById(req.body.id, function(err, abogado) {
                 if (err)
@@ -122,7 +122,7 @@ module.exports = function(app) {
 
     });
 
-    app.delete('/api/abogados/delete_abogado', function(req, res) {
+    app.delete('/abogados/delete_abogado', function(req, res) {
         
         Abogados.findByIdAndRemove(req.body.id, function(err, document) {
             if (err)
@@ -133,7 +133,7 @@ module.exports = function(app) {
         
     });
 
-    app.put('/api/abogados/', function(req, res) {
+    app.put('/abogados/', function(req, res) {
         Abogados.findByIdAndUpdate(req.body._id, {
             username: req.body.username,
             name: req.body.name,

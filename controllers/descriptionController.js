@@ -8,7 +8,7 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     
-    app.get('/api/users/description/:uname', function(req, res) {
+    app.get('/users/description/:uname', function(req, res) {
         user = null;
         console.log(req.params);
         Abogados.findOne({ username: req.params.uname }, function(err, lawyer) {
@@ -33,7 +33,7 @@ module.exports = function(app) {
         });
     });
     
-    app.post('/api/abogados/description/create_desc', function(req, res){
+    app.post('/abogados/description/create_desc', function(req, res){
         Abogados.findOne({username: req.body.username }, function(err,lawyer) {
             if (err)
                 throw err
