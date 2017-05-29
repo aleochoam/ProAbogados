@@ -3,17 +3,17 @@ var bodyParser = require('body-parser');
 
 // Todos.findByIdAndUpdate(req.body.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
 //     if (err) throw err;
-    
+
     // res.send('Success');
 // });
 
 module.exports = function(app) {
-    
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    
+
     app.get('/cases/', function(req, res) {
-        
+
         Cases.find({}, function(err, cases_data) {
             if (err)
                 throw err;
@@ -22,25 +22,23 @@ module.exports = function(app) {
             }else{
                 res.send('Can not find any cases')
             }
-            
+
         });
-        
+
     });
 
-    app.get('/cases/:uname', function(req, res) {
-        
-        Cases.find({ idUser: req.params.uname }, function(err, case_data) {
-            if (err) throw err;
-            if(case_data){
-                res.send(case_data);
-            }else{
-                res.send('Case not found')
-            }
-            
-        });
-        
+    app.get('/mycases/', function(req, res) {
+        if (!req.user) {
+            res.send('not logged in')
+        }else{
+            Cases.find({ idUser: req.user.username }, function(err, case_data) {
+                if (err) throw err;
+                res.render('mycases', {cases: case_data})
+            });
+        }
+
     });
-    
+
     app.post('/Cases/create_case', function(req, res){
         var newUser = Cases({
             title: req.body.title,
@@ -84,21 +82,21 @@ module.exports = function(app) {
     });
 
     app.delete('/Cases/delete_user', function(req, res) {
-        
+
         Cases.findByIdAndRemove(req.body.id, function(err, document) {
             if (err) throw err;
             res.send('User ' + document.username + ' deletion success.');
         })
         res.send('Invalid user id');
-        
+
     });
     // app.delete('/todo', function(req, res) {
-        
+
     //     Todos.findByIdAndRemove(req.body.id, function(err) {
     //         if (err) throw err;
     //         res.send('Success');
     //     })
-        
+
     // });
-    
+
 }

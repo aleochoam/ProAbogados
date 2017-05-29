@@ -29,6 +29,7 @@ module.exports = function(app) {
 
     });
 
+
     app.get('/users/:uname', function(req, res) {
 
         Users.find({ username: req.params.uname }, function(err, user_data) {
