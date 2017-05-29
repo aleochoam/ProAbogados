@@ -4,17 +4,17 @@ var bodyParser = require('body-parser');
 
 // Todos.findByIdAndUpdate(req.body.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
 //     if (err) throw err;
-    
+
     // res.send('Success');
 // });
 
 module.exports = function(app) {
-    
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    
+
     app.get('/users/', function(req, res) {
-        
+
         Users.find({}, function(err, users_data) {
 
             if (err) {throw err}
@@ -24,13 +24,13 @@ module.exports = function(app) {
             }else{
                 res.send('Did not find any user')
             }
-            
+
         });
-        
+
     });
 
     app.get('/users/:uname', function(req, res) {
-        
+
         Users.find({ username: req.params.uname }, function(err, user_data) {
             if (err) throw err;
             if(user_data){
@@ -38,11 +38,11 @@ module.exports = function(app) {
             }else{
                 res.send('User not found')
             }
-            
+
         });
-        
+
     });
-    
+
     app.post('/users/create_user', function(req, res){
         Users.findOne({username: req.body.username }, function(err,user) {
             if(user){
@@ -92,21 +92,21 @@ module.exports = function(app) {
     });
 
     app.delete('/users/delete_user', function(req, res) {
-        
+
         Users.findByIdAndRemove(req.body.id, function(err, document) {
             if (err) throw err;
             res.send('User ' + document.username + ' deletion success.');
         })
         res.send('Invalid user id');
-        
+
     });
     // app.delete('/todo', function(req, res) {
-        
+
     //     Todos.findByIdAndRemove(req.body.id, function(err) {
     //         if (err) throw err;
     //         res.send('Success');
     //     })
-        
+
     // });
-    
+
 }

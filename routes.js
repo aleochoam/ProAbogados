@@ -25,31 +25,11 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    app.post('/signup', function(req, res, next) {
-        console.log("POR ACA")
-        passport.authenticate('local-signup', function(err, user, info) {
-            if (err) {
-                console.log("HUBO ERROR")
-                return next(err); // will generate a 500 error
-            }
-            // Generate a JSON response reflecting authentication status
-            if (! user) {
-                return res.send({ success : false, message : 'authentication failed' });
-            }
-            // ***********************************************************************
-            // "Note that when using a custom callback, it becomes the application's
-            // responsibility to establish a session (by calling req.login()) and send
-            // a response."
-            // Source: http://passportjs.org/docs
-            // ***********************************************************************
-            req.login(user, loginErr => {
-                if (loginErr) {
-                    return next(loginErr);
-                }
-                return res.send({ success : true, message : 'authentication succeeded' });
-            });
-        })(req, res, next);
-    });
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/profile', // redirect to the secure profile section
+        failureRedirect : '/signup', // redirect back to the signup page if there is an error
+        failureFlash : true // allow flash messages
+    }));
 };
 
 function isLoggedIn(req, res, next) {

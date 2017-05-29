@@ -6,7 +6,7 @@ var flash        = require('connect-flash');
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
-// var bodyParser   = require('body-parser');
+var bodyParser   = require('body-parser');
 var session      = require('express-session');
 var config       = require('./config');
 
@@ -27,7 +27,7 @@ mongoose.connect(config.getDbConnectionString());
 
 require('./config/passport')(passport); // pass passport for configuration
 
-// app.use(bodyParser()); // get information from html forms
+app.use(bodyParser()); // get information from html forms
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 
