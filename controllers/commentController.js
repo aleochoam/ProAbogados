@@ -3,10 +3,10 @@ var Comments = require('../models/commentModel');
 var bodyParser = require('body-parser');
 
 module.exports = function(app) {
-    
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    
+
     app.get('/comments', function(req, res) {
         Comments.find({}, function(err, comms) {
             if (err)
@@ -30,12 +30,17 @@ module.exports = function(app) {
             }
         });
     });
-    
-    app.post('/comments/create_comment', function(req, res){
+
+    app.get('/comments/create_comment/:id', function(req, res){
+        res.render("create_comment")
+    })
+
+    app.post('/comments/create_comment/:id', function(req, res){
+        var username = req.user.username ? req.user.username : "anonimo"
         var newComment = Comments({
-            id_abogado: req.body.id_abogado,
-            poster: req.body.poster,
-            comment: req.body.comment
+            id_abogado: req.params.id,
+            poster: username,
+            comment: "algo"
         })
         newComment.save(function(err, newCom) {
             if (err)

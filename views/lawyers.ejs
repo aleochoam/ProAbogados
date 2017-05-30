@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Abogados</title>
+</head>
+<body>
+  <h1>Lista de abogados</h1>
+  <% for(var i=0; i<abogados.length; i++) { %>
+      <li>
+          <a href='/abogados/<%= abogados[i]._id %>'>
+              <%= abogados[i].name + " " + abogados[i].lastname %>
+          </a>
+      </li>
+  <% } %>
+</body>
+</html>

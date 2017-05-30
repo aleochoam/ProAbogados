@@ -5,19 +5,19 @@
 </head>
 <body>
 <h1>Aqui están tus casos</h1>
-<% if (cases.length == 0 ){ %>
+<% if (cases == 0 ){ %>
   <h2>No tienes casos.</h2>
-  <p>Crea uno <a href="/login">aqui</a></p>
 
 <% } else {%>
   <% for(var i=0; i<cases.length; i++) { %>
       <li>
-          <a href='supplies/<%= supplies[i] %>'>
+          <a href='case/<%= supplies[i] %>'>
               <%= supplies[i] %>
           </a>
       </li>
   <% } %>
 <% } %>
+<p>Contacta un abogado <a href="/abogados">aqui</a></p>
 
 </body>
 </html>

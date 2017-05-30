@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= resumen.name + " " + resumen.lastname %></title>
+</head>
+<body>
+
+  <h2>Nombre: <%= resumen.name%></h2>
+  <h2>Apellido: <%= resumen.lastname %></h2>
+  <h2>Descripcion</h2>
+  <ul>
+    <li>Cumpleaños: <%=descripcion.birthday%></li>
+    <li>Titulos: <%=descripcion.titles[0]%></li>
+  </ul>
+  <h2>Comentarios</h2>
+  <ul>
+    <% for(var i=0; i<comentarios.length; i++) { %>
+        <li>
+            <strong><%= comentarios[i].poster + " dice: "%></strong><br>
+            <%= comentarios[i].comment%></strong>
+        </li>
+    <% } %>
+  </ul>
+  <p>Deja tu comentario <a href="/comments/create_comment/<%= resumen._id%>">aqui</a></p>
+</body>
+</html>

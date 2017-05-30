@@ -5,31 +5,27 @@ var bodyParser = require('body-parser');
 
 // Todos.findByIdAndUpdate(req.body.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
 //     if (err) throw err;
-    
+
     // res.send('Success');
 // });
 
 module.exports = function(app) {
-    
+
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    
+
     app.get('/abogados/', function(req, res) {
         Abogados.find({}, function(err, abogados_data) {
             if (err)
                 throw err
-            if(abogados_data){
-                res.send(abogados_data);
-            }else{
-                res.send('Did not find any lawyer')
-            }
-            
+            res.render("lawyers", {abogados: abogados_data})
+
         });
-        
+
     });
 
     app.get('/abogados/:id', function(req, res) {
-        
+
         Abogados.findOne({ _id: req.params.id }, function(err, abogado_data) {
             if (err)
                 throw err;
@@ -40,7 +36,7 @@ module.exports = function(app) {
                     Comments.find({id_abogado: abogado_data._id}, function(err, comms) {
                         if (err)
                             throw err
-                        res.send({
+                        res.render("lawyer", {
                             "resumen": abogado_data,
                             "descripcion": desc,
                             "comentarios": comms
@@ -54,7 +50,7 @@ module.exports = function(app) {
     });
 
     app.get('/abogados/topic/:uname', function(req, res) {
-        
+
         Abogados.find({ roles: {"$in" : [req.params.uname]} }, function(err, abogado_data) {
             console.log(abogado_data)
             if (err)
@@ -64,11 +60,11 @@ module.exports = function(app) {
             }else{
                 res.send('Cant find lawyers with that topic')
             }
-            
+
         });
-        
+
     });
-    
+
     app.post('/abogados/create_abogado', function(req, res){
         Abogados.findOne({username: req.body.username }, function(err,abogado) {
             if(abogado){
@@ -123,14 +119,14 @@ module.exports = function(app) {
     });
 
     app.delete('/abogados/delete_abogado', function(req, res) {
-        
+
         Abogados.findByIdAndRemove(req.body.id, function(err, document) {
             if (err)
                 throw err;
             res.send('Lawyer ' + document.username + ' deletion success.');
         })
         // res.send('Invalid lawyer id');
-        
+
     });
 
     app.put('/abogados/', function(req, res) {
@@ -149,5 +145,5 @@ module.exports = function(app) {
             res.send("Description changed to: " + document.username)
         });
     });
-    
+
 }
