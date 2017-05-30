@@ -38,16 +38,17 @@ module.exports = function(app) {
     })
 
     app.post('/comments/:id', function(req, res){
-        var username = req.user.username ? req.user.username : "anonimo"
+        // var username = req.user.username != undefined ? req.user.username : "anonimo"
+        console.log(req.user)
         var newComment = Comments({
             id_abogado: req.params.id,
-            poster: username,
+            poster: req.user.username,
             comment: req.body.comentario
         })
         newComment.save(function(err, newCom) {
             if (err)
                 throw err
-            res.send("Comment saved")
+            res.redirect("/abogados/"+req.params.id)
         })
     });
 }
