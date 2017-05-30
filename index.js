@@ -12,12 +12,12 @@ var config       = require('./config');
 
 
 var abogadoController     = require('./controllers/abogadoController');
-var botCaseController     = require('./controllers/botCaseController');
-var botUserController     = require('./controllers/botUserController');
+// var botCaseController     = require('./controllers/botCaseController');
+// var botUserController     = require('./controllers/botUserController');
 var caseController        = require('./controllers/caseController');
 var commentController     = require('./controllers/commentController')
 var descriptionController = require('./controllers/descriptionController');
-var legalAppController    = require('./controllers/legalAppController')
+// var legalAppController    = require('./controllers/legalAppController')
 // var setupController    = require('./controllers/setupController');
 var userController        = require('./controllers/userController');
 
@@ -50,12 +50,12 @@ require('./routes.js')(app, passport);
 
 // setupController(app);
 abogadoController(app)
-botCaseController(app)
-botUserController(app)
+// botCaseController(app)
+// botUserController(app)
 caseController(app)
 commentController(app)
 descriptionController(app)
-legalAppController(app)
+// legalAppController(app)
 userController(app)
 
 
