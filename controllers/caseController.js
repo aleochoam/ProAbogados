@@ -51,7 +51,7 @@ module.exports = function(app) {
             title: req.body.title,
             description: req.body.descripcion,
             type: "",
-            idUser: req.user._id,
+            idUser: req.user.id,
             idAbogado: req.body.abogado
         });
         newCase.save(function(err, document) {
