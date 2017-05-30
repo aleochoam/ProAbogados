@@ -2,7 +2,7 @@ module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
         if (req.user) {
-            res.render('mycases')
+            res.redirect('cases')
         }
         else{
             res.render('index'); // load the index file

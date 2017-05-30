@@ -17,24 +17,13 @@ module.exports = function(app) {
         if (!req.user) {
             res.send('not logged in')
         }else{
-            Cases.find({ idUser: req.user._id }, function(err, case_data) {
+            Cases.find({ idUser: req.user.id }, function(err, case_data) {
                 if (err) throw err;
                 res.render('mycases', {cases: case_data})
             });
         }
 
     });
-
-    app.get('/cases/:id', function(req, res) {
-        Cases.findOne({_id : req.params.id}, function(err, case_data) {
-            Abogados.findOne({_id: case_data.idAbogado}, function(err, abogado_data){
-                if (err) throw err
-                res.render('case', {caso: case_data, abogado: abogado_data})
-            })
-        });
-
-    });
-
 
     app.get('/cases/create_case', function(req, res){
         Abogados.find({}, function(err, abogados_data) {
@@ -44,6 +33,18 @@ module.exports = function(app) {
 
         });
     })
+
+    app.get('/cases/:id', function(req, res) {
+        Cases.findOne({_id : req.params.id}, function(err, case_data) {
+            if (err) throw err
+            Abogados.findOne({_id: case_data.idAbogado}, function(err, abogado_data){
+                if (err) throw err
+                res.render('case', {caso: case_data, abogado: abogado_data})
+            })
+        });
+
+    });
+
 
     app.post('/cases/create_case', function(req, res){
         var newCase = Cases({
@@ -55,10 +56,19 @@ module.exports = function(app) {
         });
         newCase.save(function(err, document) {
             if (err) throw err;
-            res.redirect("/mycases");
+            res.redirect("/cases");
         });
     });
 
+    app.get('/cases/:id/edit', function(req, res){
+        Cases.findOne({_id : req.params.id}, function(err, case_data) {
+            if (err) throw err
+            Abogados.findOne({_id: case_data.idAbogado}, function(err, abogado_data){
+                if (err) throw err
+                res.render('edit_case', {caso: case_data, abogado: abogado_data})
+            })
+        });
+    })
     //Se necesita id y role
     app.put('/Cases/add_role', function(req, res) {
         if(req.body.role && req.body.id){
