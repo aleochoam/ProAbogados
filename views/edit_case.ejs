@@ -4,8 +4,11 @@
   <title>Editar</title>
 </head>
 <body>
-  <p>Titulo: <input type="input" name="title" value="<%= caso.title %>"></p>
-  <p>Abogado: <input type="input" name="abogado" value="<%= abogado.name + " "+ abogado.lastname %>" disabled></p>
-  <p>Descripcion: <input type="input" name="descripcion" value="<%= caso.description %>"></p>
+  <form method="post" action="/cases/<%= caso._id%>/edit">
+    <p>Titulo: <input type="input" name="title" value="<%= caso.title %>"></p>
+    <p>Abogado: <input type="input" name="abogado" value="<%= abogado.name + " "+ abogado.lastname %>" disabled></p>
+    <p>Descripcion: <input type="input" name="descripcion" value="<%= caso.description %>"></p>
+    <input type="submit" name="otracosa">
+  </form>
 </body>
 </html>
