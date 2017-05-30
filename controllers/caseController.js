@@ -1,4 +1,5 @@
 var Cases = require('../models/caseModel');
+var Abogados = require('../models/abogadoModel')
 var bodyParser = require('body-parser');
 
 // Todos.findByIdAndUpdate(req.body.id, { todo: req.body.todo, isDone: req.body.isDone, hasAttachment: req.body.hasAttachment }, function(err, todo) {
@@ -12,32 +13,28 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
-    // app.get('/cases/', function(req, res) {
-
-    //     Cases.find({}, function(err, cases_data) {
-    //         if (err)
-    //             throw err;
-    //         if(cases_data){
-    //             res.send(cases_data);
-    //         }else{
-    //             res.send('Can not find any cases')
-    //         }
-
-    //     });
-
-    // });
-
     app.get('/cases/', function(req, res) {
         if (!req.user) {
             res.send('not logged in')
         }else{
-            Cases.find({ idUser: req.user.username }, function(err, case_data) {
+            Cases.find({ idUser: req.user._id }, function(err, case_data) {
                 if (err) throw err;
                 res.render('mycases', {cases: case_data})
             });
         }
 
     });
+
+    app.get('/cases/:id', function(req, res) {
+        Cases.findOne({_id : req.params.id}, function(err, case_data) {
+            Abogados.findOne({_id: case_data.idAbogado}, function(err, abogado_data){
+                if (err) throw err
+                res.render('case', {caso: case_data, abogado: abogado_data})
+            })
+        });
+
+    });
+
 
     app.get('/cases/create_case', function(req, res){
         Abogados.find({}, function(err, abogados_data) {
@@ -48,17 +45,17 @@ module.exports = function(app) {
         });
     })
 
-    app.post('/Cases/create_case', function(req, res){
-        var newUser = Cases({
+    app.post('/cases/create_case', function(req, res){
+        var newCase = Cases({
             title: req.body.title,
-            description: req.body.description,
-            type: req.body.type,
-            idUser: req.body.idUser,
-            idAbogado: req.body.idAbogado
+            description: req.body.descripcion,
+            type: "",
+            idUser: req.user._id,
+            idAbogado: req.body.abogado
         });
-        newUser.save(function(err, document) {
+        newCase.save(function(err, document) {
             if (err) throw err;
-            res.send('Case: '+ document.id + ' created');
+            res.redirect("/mycases");
         });
     });
 

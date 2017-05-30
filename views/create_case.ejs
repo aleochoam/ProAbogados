@@ -4,12 +4,22 @@
   <title>Nuevo Caso</title>
 </head>
 <body>
-<h2>Abogado: </h2>
-<select>
-  <% for(var i=0; i<abogados.length; i++) { %>
-      <option value='<%= abogados.name %>'><%= abogados.name %></option>
-  <% } %>
-  
-</select>
+<h2>Crear un nuevo caso: </h2>
+
+<form method="post" action="/cases/create_case">
+  <p>Selecciona un abogado:</p>
+  <select name="abogado">
+    <% for(var i=0; i<abogados.length; i++) { %>
+        <option value='<%= abogados[i]._id %>'><%= abogados[i].name + " " + abogados[i].lastname %></option>
+    <% } %>
+  </select>
+  <p>Ingrese un titulo para el caso</p>
+  <input type="input" name="title">
+  <p>Descripcion breve del caso:</p>
+  <textarea name="descripcion"></textarea>
+  <br>
+  <input type="submit" name="cualquiercosa" >
+</form>
+<p></p>
 </body>
 </html>
