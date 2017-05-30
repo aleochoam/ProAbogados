@@ -1,5 +1,6 @@
 {
   "name": "proabogados",
+  "start": "node app.js",
   "version": "1.0.0",
   "description": "ProAbogados UI",
   "main": "index.js",
