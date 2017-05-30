@@ -4,6 +4,10 @@
   <title>Nuevo comentario</title>
 </head>
 <body>
-
+<h3>Nuevo Comentario</h3>
+<form method="post" action="/comments/create_comment">
+  Abogado: <input type="input" name="abogado" value="<%= abogado._id%>">
+  <textarea name="comentario"></textarea>
+</form>
 </body>
 </html>
