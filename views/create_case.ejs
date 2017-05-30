@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nuevo Caso</title>
+</head>
+<body>
+<h2>Abogado: </h2>
+<select>
+  <% for(var i=0; i<abogados.length; i++) { %>
+      <option value='<%= abogados.name %>'><%= abogados.name %></option>
+  <% } %>
+  
+</select>
+</body>
+</html>

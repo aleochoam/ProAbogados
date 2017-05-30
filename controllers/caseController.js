@@ -12,22 +12,22 @@ module.exports = function(app) {
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
 
+    // app.get('/cases/', function(req, res) {
+
+    //     Cases.find({}, function(err, cases_data) {
+    //         if (err)
+    //             throw err;
+    //         if(cases_data){
+    //             res.send(cases_data);
+    //         }else{
+    //             res.send('Can not find any cases')
+    //         }
+
+    //     });
+
+    // });
+
     app.get('/cases/', function(req, res) {
-
-        Cases.find({}, function(err, cases_data) {
-            if (err)
-                throw err;
-            if(cases_data){
-                res.send(cases_data);
-            }else{
-                res.send('Can not find any cases')
-            }
-
-        });
-
-    });
-
-    app.get('/mycases/', function(req, res) {
         if (!req.user) {
             res.send('not logged in')
         }else{
@@ -38,6 +38,15 @@ module.exports = function(app) {
         }
 
     });
+
+    app.get('/cases/create_case', function(req, res){
+        Abogados.find({}, function(err, abogados_data) {
+            if (err)
+                throw err
+            res.render("create_case", {abogados: abogados_data})
+
+        });
+    })
 
     app.post('/Cases/create_case', function(req, res){
         var newUser = Cases({
