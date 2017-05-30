@@ -1,12 +1,7 @@
 module.exports = function(app, passport) {
 
     app.get('/', function(req, res) {
-        if (req.user) {
-            res.redirect('cases')
-        }
-        else{
-            res.render('index'); // load the index file
-        }
+        res.render('index'); // load the index file
     });
 
     app.get('/login', function(req, res) {

@@ -32,15 +32,17 @@ module.exports = function(app) {
     });
 
     app.get('/comments/create_comment/:id', function(req, res){
-        res.render("create_comment")
+        Abogados.findOne({ _id: req.params.id }, function(err, lawyer) {
+            res.render("create_comment", {abogado: lawyer})
+        });
     })
 
-    app.post('/comments/create_comment/:id', function(req, res){
+    app.post('/comments/:id', function(req, res){
         var username = req.user.username ? req.user.username : "anonimo"
         var newComment = Comments({
             id_abogado: req.params.id,
             poster: username,
-            comment: "algo"
+            comment: req.body.comentario
         })
         newComment.save(function(err, newCom) {
             if (err)

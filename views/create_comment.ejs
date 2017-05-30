@@ -5,8 +5,9 @@
 </head>
 <body>
 <h3>Nuevo Comentario</h3>
-<form method="post" action="/comments/create_comment">
-  Abogado: <input type="input" name="abogado" value="<%= abogado._id%>">
+<form method="post" action="/comments/:id">
+  Abogado: <input type="input" name="abogado" value="<%= abogado.name + " " + abogado.lastname%>" disabled>
+  <p>Ingresa tu comentario:</p>
   <textarea name="comentario"></textarea>
 </form>
 </body>
