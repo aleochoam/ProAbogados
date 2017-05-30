@@ -1,11 +1,70 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-  <title>Caso <% caso.title%></title>
+  <title>Caso
+    <% caso.title%> - ProAbogados</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
 </head>
+
 <body>
-  <p>Titulo: <%= caso.title%></p>
-  <p>Abogado: <%= abogado.name + " " + abogado.lastname%></p>
-  <p>Descripcion: <%= caso.description%></p>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <%= caso.title%>
+        </h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://zc-law.com/wp-content/uploads/2011/07/law-book-gavel.jpg" class="img-circle img-responsive">            </div>
+
+
+          <div class=" col-md-9 col-lg-9 ">
+            <table class="table table-user-information">
+              <tbody>
+                <tr>
+                  <td>Abogado:</td>
+                  <td>
+                    <%= abogado.name + " " + abogado.lastname%>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Descripcion:</td>
+                  <td>
+                    <%= caso.description%>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <a data-original-title="Atrás" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" href="../"><i class="glyphicon glyphicon-arrow-left"></i></a>
+        <span class="pull-right">
+            <a href="edit" data-original-title="Editar caso" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+            <a href="delete" data-original-title="Eliminar caso" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-trash"></i></a>
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script>$('[data-toggle="tooltip"]').tooltip();</script>
 </body>
+
 </html>

@@ -1,28 +1,66 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-  <title>Dashboard</title>
+  <title>Mis casos - ProAbogados</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <style>
+    body {
+      padding-top: 80px;
+    }
+    .trash { color:rgb(209, 91, 71); }
+    .flag { color:rgb(248, 148, 6); }
+    .pull-right { margin-top: -17px; }
+    .list-group-item:hover, a.list-group-item:focus {text-decoration: none;background-color: rgb(245, 245, 245);}
+    .list-group { margin-bottom:0px; }
+  </style>
 </head>
-<body>
-<h1>Aqui están tus casos</h1>
-<% if (cases.length == 0 ){ %>
-  <h2>No tienes casos.</h2>
 
-<% } else {%>
-  <% for(var i=0; i<cases.length; i++) { %>
-      <li>
-          <%=cases[i].title%>
-          <a href='/cases/<%= cases[i]._id %>'>Ver</a>
-          <a href='/cases/<%= cases[i]._id %>/edit'>Editar</a>
-          <a href='/cases/<%= cases[i]._id %>/delete'>Borrar %></a>
-      </li>
-  <% } %>
-<% } %>
 
-<!-- <p>Contacta un abogado <a href="/abogados">aqui</a></p> -->
-<p>Crea un nuevo caso <a href="/cases/create_case">aqui</a></p>
-<p>Explora abogados <a href="/abogados">aqui</a></p>
-<a href="/profile">Mi Perfil</a>
+  <div class="container">
 
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+        <center><a href="/abogados" class="btn btn-primary">Explorar abogados</a> <a href="/profile" class="btn btn-primary">Mi perfil</a></center><br>
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <span class="glyphicon glyphicon-list"></span>Mis casos
+          </div>
+          <div class="panel-body">
+            <ul class="list-group">
+
+                <% if (cases.length == 0 ){ %>
+                    <h2>No tienes casos.</h2>
+
+                <% } else {%>
+                    <% for(var i=0; i<cases.length; i++) { %>
+                        <li class="list-group-item">
+                          <div><a href='/cases/<%= cases[i]._id %>/'><%=cases[i].title%></a></div>
+                          <div class="pull-right action-buttons">
+                            <a href="/cases/<%= cases[i]._id %>/edit" data-original-title="Editar" data-toggle="tooltip"><span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="/cases/<%= cases[i]._id %>/delete" class="trash" data-original-title="Eliminar" data-toggle="tooltip"><span class="glyphicon glyphicon-trash"></span></a>
+                          </div>
+                        </li>
+
+                    <% } %>
+                <% } %>
+            </ul>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-md-6">
+                <a href="/cases/create_case" class="btn btn-success">Crear nuevo caso</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script>$('[data-toggle="tooltip"]').tooltip();</script>
 </body>
+
 </html>

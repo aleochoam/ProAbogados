@@ -1,16 +1,62 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-  <title>Nuevo comentario</title>
+  <title>Nuevo caso - ProAbogados</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
 </head>
+
 <body>
-<h3>Nuevo Comentario</h3>
-<form method="post" action="/comments/<%=abogado._id%>">
-  Abogado: <input type="input" name="abogado" value="<%= abogado.name + " " + abogado.lastname%>" disabled>
-  <p>Ingresa tu comentario:</p>
-  <textarea name="comentario"></textarea>
-  <br>
-  <input type="submit" name="otracosa">
-</form>
+
+  <div class="container">
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+        <div class="form-area">
+            <form method="post" action="/comments/<%=abogado._id%>">
+            <br style="clear:both">
+                        <h3 style="margin-bottom: 25px; text-align: center;">Publicar comentario a: <%= abogado.name + " " + abogado.lastname%></h3>
+
+                        <div class="form-group">
+                        <textarea class="form-control" type="textarea" id="message" name="comentario" placeholder="Comentario" maxlength="140" rows="7"></textarea>
+                            <span class="help-block"><p id="characterLeft" class="help-block ">Has alcanzado el límite</p></span>
+                        </div>
+
+              <button type="submit" id="submit" name="submit" class="btn btn-primary pull-right">Publicar</button>
+            </form>
+        </div>
+    </div>
+  </div>
+
+
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script>$('[data-toggle="tooltip"]').tooltip();
+  $(document).ready(function(){
+    $('#characterLeft').text('140 caracteres restantes');
+    $('#message').keydown(function () {
+        var max = 140;
+        var len = $(this).val().length;
+        if (len >= max) {
+            $('#characterLeft').text('Has alcanzado el límite');
+            $('#characterLeft').addClass('red');
+            $('#btnSubmit').addClass('disabled');
+        }
+        else {
+            var ch = max - len;
+            $('#characterLeft').text(ch + ' caracteres restantes.');
+            $('#btnSubmit').removeClass('disabled');
+            $('#characterLeft').removeClass('red');
+        }
+    });
+});
+
+  </script>
 </body>
+
 </html>

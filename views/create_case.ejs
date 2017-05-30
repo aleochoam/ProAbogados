@@ -1,25 +1,80 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <title>Nuevo Caso</title>
-</head>
-<body>
-<h2>Crear un nuevo caso: </h2>
 
-<form method="post" action="/cases/create_case">
-  <p>Selecciona un abogado:</p>
-  <select name="abogado">
-    <% for(var i=0; i<abogados.length; i++) { %>
-        <option value='<%= abogados[i]._id %>'><%= abogados[i].name + " " + abogados[i].lastname %></option>
-    <% } %>
-  </select>
-  <p>Ingrese un titulo para el caso</p>
-  <input type="input" name="title">
-  <p>Descripcion breve del caso:</p>
-  <textarea name="descripcion"></textarea>
-  <br>
-  <input type="submit" name="cualquiercosa" >
-</form>
-<p></p>
+<head>
+  <title>Nuevo caso - ProAbogados</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <!-- load bootstrap css -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <!-- load fontawesome -->
+  <style>
+    body {
+      padding-top: 80px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad">
+
+    <form method="post" action="/cases/create_case">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              Nuevo caso
+            </h3>
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://zc-law.com/wp-content/uploads/2011/07/law-book-gavel.jpg" class="img-circle img-responsive">            </div>
+
+
+              <div class=" col-md-9 col-lg-9 ">
+                <table class="table table-user-information">
+                  <tbody>
+                    <tr>
+                      <td>Abogado:</td>
+                      <td>
+                        <select name="abogado">
+                          <% for(var i=0; i<abogados.length; i++) { %>
+                              <option value='<%= abogados[i]._id %>'><%= abogados[i].name + " " + abogados[i].lastname %></option>
+                          <% } %>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Título:</td>
+                      <td>
+                        <input type="input" name="title">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Descripcion:</td>
+                      <td>
+                        <input type="input" name="descripcion">
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+
+              </div>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <a data-original-title="Atrás" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary" onclick="window.history.back()"><i class="glyphicon glyphicon-arrow-left"></i></a>
+            <span class="pull-right">
+                <button type="submit" data-original-title="Crear" data-toggle="tooltip" type="button" class="btn btn-sm btn-success"><i class="glyphicon glyphicon-ok"></i></button>
+                <a href="./" data-original-title="Cancelar" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+            </span>
+          </div>
+
+        </div>
+    </form>
+  </div>
+
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+  <script>$('[data-toggle="tooltip"]').tooltip();</script>
 </body>
+
 </html>
